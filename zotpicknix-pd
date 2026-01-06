@@ -5,8 +5,10 @@
 # The default text editor is set to Scrivener. Edit Preferences below if you use a different program.
 
 ## PREFERENCES ##
-textEditor="Scrivener" # Replace "Scrivener" with the name of your preferred text editor (as it appears in the program window)
-CAYW_URL="http://localhost:23119/better-bibtex/cayw?format=pandoc" # Edit the URL as needed for a different citation marker format.
+textEditor="VSCodium" # Replace "Scrivener" with the name of your preferred text editor (as it appears in the program window)
+CAYW_URL="http://localhost:23119/better-bibtex/cayw?clipboard=true&format=pandoc" # Edit the URL as needed for a different citation marker format.
+
+# Adding `&selected=true` to the CAYW_URL will automatically insert citations for the items selected in the main Zotero window.
 
 widTE=$(xdotool search --onlyvisible $textEditor 2>/dev/null | head -1)
 
@@ -20,7 +22,7 @@ BBT_status=$(/usr/bin/curl 'http://localhost:23119/better-bibtex/cayw?probe=prob
 if [ "$BBT_status" == "ready" ] 2>/dev/null; then
 		notify-send "Accessing Zotero picker..."
 		citation=$(/usr/bin/curl $CAYW_URL 2>/dev/null)
-		xdotool windowactivate $widTE && xdotool type --window $widTE --delay 40 "$citation" # Long delay minimises xdotool errors
+		xdotool windowactivate --sync $widTE && xdotool type --window $widTE --delay 40 "$citation" # Long delay minimises xdotool errors
 		exit 0;
 
 elif [ -z "$BBT_status" ]; then
