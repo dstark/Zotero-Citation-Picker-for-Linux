@@ -20,7 +20,7 @@ fi
 BBT_status=$(/usr/bin/curl 'http://localhost:23119/better-bibtex/cayw?probe=probe' 2>/dev/null)
 
 if [ "$BBT_status" == "ready" ] 2>/dev/null; then
-		notify-send "Accessing Zotero picker..."
+		# notify-send "Accessing Zotero picker..."
 		citation=$(/usr/bin/curl $CAYW_URL 2>/dev/null)
 		xdotool windowactivate --sync $widTE && xdotool type --window $widTE --delay 40 "$citation" # Long delay minimises xdotool errors
 		exit 0;
