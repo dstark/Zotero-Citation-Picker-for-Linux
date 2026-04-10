@@ -28,6 +28,7 @@ if [ "$BBT_status" == "ready" ] 2>/dev/null; then
 elif [ -z "$BBT_status" ]; then
 		notify-send "Please launch Zotero with the Better BibTeX plugin. If Zotero is running, check 'Enable export by HTTP' in BBT and restart Zotero."
 		xdotool windowactivate $widTE
+		# nohup zotero > ~/.nohup.log 2>&1 &
 		exit 4;
 
 elif [ "$BBT_status" == "No endpoint found" ] 2>/dev/null; then
