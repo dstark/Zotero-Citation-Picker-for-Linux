@@ -12,10 +12,10 @@ CAYW_URL="http://localhost:23119/better-bibtex/cayw?clipboard=true&format=pandoc
 
 widTE=$(xdotool search --onlyvisible $textEditor 2>/dev/null | head -1)
 
-if ! [ $widTE ]; then
-		notify-send "Please open $textEditor and try again, or edit the Zotpicknix script file to specify a different text editor."
-		exit 3;
-fi
+# if ! [ $widTE ]; then
+# 		notify-send "Please open $textEditor and try again, or edit the Zotpicknix script file to specify a different text editor."
+# 		exit 3;
+# fi
 
 BBT_status=$(/usr/bin/curl 'http://localhost:23119/better-bibtex/cayw?probe=probe' 2>/dev/null)
 
@@ -23,6 +23,7 @@ if [ "$BBT_status" == "ready" ] 2>/dev/null; then
 		# notify-send "Accessing Zotero picker..."
 		citation=$(/usr/bin/curl $CAYW_URL 2>/dev/null)
 		xdotool windowactivate --sync $widTE && xdotool type --window $widTE --delay 40 "$citation" # Long delay minimises xdotool errors
+		espanso match exec -t \;citation
 		exit 0;
 
 elif [ -z "$BBT_status" ]; then
