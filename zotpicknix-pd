@@ -23,7 +23,7 @@ if [ "$BBT_status" == "ready" ] 2>/dev/null; then
 		# notify-send "Accessing Zotero picker..."
 		citation=$(/usr/bin/curl $CAYW_URL 2>/dev/null)
 		xdotool windowactivate --sync $widTE && xdotool type --window $widTE --delay 40 "$citation" # Long delay minimises xdotool errors
-		espanso match exec -t \;citation
+		# espanso match exec -t \;citation
 		exit 0;
 
 elif [ -z "$BBT_status" ]; then
